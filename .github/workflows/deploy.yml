@@ -27,6 +27,7 @@ jobs:
          with:
          repository: ruppreca/heizung
          ref: master
+         token: fa629149d72f0e9287b3ece855b6a8e3803c0f89
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
