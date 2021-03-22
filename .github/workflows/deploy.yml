@@ -27,7 +27,7 @@ jobs:
         with:
             repository: ruppreca/heizung
             ref: master
-            token: ${{ secrets.MY_PRIVATE_CHECKOUT }}
+            token: ${{ secrets.CHECKOUT_HEIZUNG }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
