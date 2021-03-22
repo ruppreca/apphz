@@ -24,10 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-         with:
-         repository: ruppreca/heizung
-         ref: master
-         token: fa629149d72f0e9287b3ece855b6a8e3803c0f89
+        with:
+            repository: ruppreca/heizung
+            token: ${{ secrets.CHECKOUT_HEIZUNG }}
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
