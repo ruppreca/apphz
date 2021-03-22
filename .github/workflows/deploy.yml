@@ -22,19 +22,14 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
             repository: ruppreca/heizung
             ref: master
             token: ${{ secrets.CHECKOUT_HEIZUNG }}
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: ls -al
-        
-      # sets up .NET Core SDK 5.0
-            
+      
+    # sets up .NET Core SDK 5.0         
       - name: Setup .NET Core SDK
         uses: actions/setup-dotnet@v1
         with:
@@ -49,12 +44,12 @@ jobs:
 #        run: sed -i 's/<base href="\/" \/>/<base href="\/Heizung\/" \/>/g' Heizung.Client/release/wwwroot/index.html
     
     # copy index.html to 404.html to serve the same file when a file is not found
-#    - name: copy index.html to 404.html
-#      run: cp Heizung.Client/release/wwwroot/index.html Heizung.Client/release/wwwroot/404.html
+      - name: copy index.html to 404.html
+        run: cp Heizung.Client/release/wwwroot/index.html Heizung.Client/release/wwwroot/404.html
 
     # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
-#    - name: Add .nojekyll file
-#      run: touch Heizung.Client/release/wwwroot/.nojekyll
+      - name: Add .nojekyll file
+        run: touch Heizung.Client/release/wwwroot/.nojekyll
       
       - name: Commit wwwroot to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@3.7.1
