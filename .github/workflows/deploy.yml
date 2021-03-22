@@ -27,11 +27,40 @@ jobs:
         with:
             repository: ruppreca/heizung
             ref: master
-            token: ${{ secrets.CHECKOUT_HEIZUNG }}
-            path: heizung
+            token: ${{ secrets
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: ls -al
+        
+      # sets up .NET Core SDK 5.0
+            
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0
+
+    # publishes Blazor project to the release-folder
+      - name: Publish .NET Core Project
+        run: dotnet Heizung.Client/Heizung.Client.csproj -c Heizung.Client/Release -o release --nologo
+    
+    # changes the base-tag in index.html from '/' to 'Heizung' to match GitHub Pages repository subdirectory
+#      - name: Change base-tag in index.html from / to Heizung
+#        run: sed -i 's/<base href="\/" \/>/<base href="\/Heizung\/" \/>/g' Heizung.Client/release/wwwroot/index.html
+    
+    # copy index.html to 404.html to serve the same file when a file is not found
+#    - name: copy index.html to 404.html
+#      run: cp Heizung.Client/release/wwwroot/index.html Heizung.Client/release/wwwroot/404.html
+
+    # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+#    - name: Add .nojekyll file
+#      run: touch Heizung.Client/release/wwwroot/.nojekyll
+      
+      - name: Commit wwwroot to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: release/wwwroot
 
  
